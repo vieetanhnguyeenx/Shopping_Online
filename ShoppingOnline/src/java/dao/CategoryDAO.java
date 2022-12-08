@@ -33,6 +33,7 @@ public class CategoryDAO {
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            // get all Category and add to Category list
             while (rs.next()) {                
                 Category c = new Category();
                 c.setId(rs.getInt("id"));
@@ -45,8 +46,5 @@ public class CategoryDAO {
         return listCategory;
     }
 
-    public ArrayList<Product> getAllProduct() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }

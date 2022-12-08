@@ -5,6 +5,7 @@
 package controller;
 
 import dao.CategoryDAO;
+import dao.ProductDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -35,9 +36,10 @@ public class HomeController extends HttpServlet {
         ArrayList<Category> listCategory = new CategoryDAO().getAllCategory();
         request.setAttribute("listCate", listCategory);
         
-//        ArrayList<Product> listProduct = new CategoryDAO().getAllProduct();
-//        request.setAttribute("listPro", listProduct);
-        // display home.jsp
+        ArrayList<Product> listProduct = new ProductDAO().getAllProduct();
+        request.setAttribute("listPro", listProduct);
+        
+        //display home.jsp
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
