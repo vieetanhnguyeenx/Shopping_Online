@@ -35,10 +35,16 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         ArrayList<Category> listCategory = new CategoryDAO().getAllCategory();
         request.setAttribute("listCate", listCategory);
-        
+
+        int page = 1;
+        final int PAGE_SIZE = 6;
+        String rawPage = request.getParameter("page");
+        if (rawPage != null) {
+            page = Integer.parseInt(rawPage);
+        }
         ArrayList<Product> listProduct = new ProductDAO().getAllProduct();
-        request.setAttribute("listPro", listProduct);
-        
+        request.setAttribute("listPro", listProduct.subList((page - 1) * PAGE_SIZE, page * PAGE_SIZE));
+
         //display home.jsp
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
