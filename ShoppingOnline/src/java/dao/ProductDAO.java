@@ -33,7 +33,7 @@ public class ProductDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             // get all product and add to product list
-            while (rs.next()) {                
+            while (rs.next()) {
                 Product p = new Product();
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
@@ -42,7 +42,7 @@ public class ProductDAO {
                 p.setDescription(rs.getString("description"));
                 p.setImageUrl(rs.getString("imageUrl"));
                 p.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
-                
+
                 Category category = new Category();
                 category.setId(rs.getInt("category_id"));
                 p.setCategory(category);
@@ -53,11 +53,42 @@ public class ProductDAO {
         }
         return productList;
     }
-    
+
+    public ArrayList<Product> getProductsByCategoryId(int id) {
+        ArrayList<Product> productList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Product WHERE category_id = ?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setQuantity(rs.getInt("quantity"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDescription(rs.getString("description"));
+                p.setImageUrl(rs.getString("imageUrl"));
+                p.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
+
+                Category category = new Category();
+                category.setId(rs.getInt("category_id"));
+                p.setCategory(category);
+                productList.add(p);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return productList;
+    }
+
     public static void main(String[] args) {
-        ArrayList<Product> productList = new ProductDAO().getAllProduct();
+        ArrayList<Product> productList = new ProductDAO().getProductsByCategoryId(2);
         for (Product p : productList) {
             System.out.println(p.toString());
         }
     }
+
 }

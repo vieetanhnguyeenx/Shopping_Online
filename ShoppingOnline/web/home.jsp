@@ -80,7 +80,7 @@
                         <div class="border-top my-3"></div>
                         <ul class="list-group">
                             <c:forEach items="${requestScope.listCate}" var="c">
-                                <li class="list-group-item">${c.name}</li>
+                                <li class="list-group-item"><a style="text-decoration: none;" href="filter-category?categoryId=${c.id}">${c.name}</a></li>
                                 </c:forEach>                        
                         </ul>
                     </div>
