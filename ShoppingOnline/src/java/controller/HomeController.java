@@ -42,8 +42,8 @@ public class HomeController extends HttpServlet {
         if (rawPage != null) {
             page = Integer.parseInt(rawPage);
         }
-        ArrayList<Product> listProduct = new ProductDAO().getAllProduct();
-        request.setAttribute("listPro", listProduct.subList((page - 1) * PAGE_SIZE, page * PAGE_SIZE));
+        ArrayList<Product> listProduct = new ProductDAO().getProductWithPaging(page, PAGE_SIZE);
+        request.setAttribute("listPro", listProduct);
 
         //display home.jsp
         request.getRequestDispatcher("home.jsp").forward(request, response);
