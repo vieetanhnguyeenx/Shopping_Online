@@ -4,6 +4,7 @@
  */
 package controller;
 
+import context.DBContext;
 import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.io.IOException;
@@ -42,9 +43,11 @@ public class HomeController extends HttpServlet {
         if (rawPage != null) {
             page = Integer.parseInt(rawPage);
         }
+        int allPage = new ProductDAO().getNumberPage();
+        request.setAttribute("page", allPage);
         ArrayList<Product> listProduct = new ProductDAO().getProductWithPaging(page, PAGE_SIZE);
         request.setAttribute("listPro", listProduct);
-
+        request.setAttribute("link", "home?");
         //display home.jsp
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

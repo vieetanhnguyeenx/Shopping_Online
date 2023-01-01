@@ -29,12 +29,12 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">LongWatch</a>
+                <a class="navbar-brand" href="home">LongWatch</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="home">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -123,9 +123,9 @@
                         </div>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
-                                <c:forEach begin="1" end="${dao.numberPage}" var="p">
+                                <c:forEach begin="1" end="${requestScope.page}" var="p">
                                     <li class="page-item">
-                                        <a class="page-link" href="home?page=${p}">${p}</a>
+                                        <a class="page-link" href="${requestScope.link}page=${p}">${p}</a>
                                     </li>
                                 </c:forEach>
                             </ul>

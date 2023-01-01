@@ -27,16 +27,26 @@ public class FilterCategoryController extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         ArrayList<Category> listCategory = new CategoryDAO().getAllCategory();
-        req.setAttribute("listCate", listCategory);
+        request.setAttribute("listCate", listCategory);
         
-        int id = Integer.parseInt(req.getParameter("categoryId"));
-        ArrayList<Product> listProduct = new ProductDAO().getProductsByCategoryId(id);
-        req.setAttribute("listPro", listProduct);
+        int page = 1;
+        final int PAGE_SIZE = 6;
+        String rawPage = request.getParameter("page");
+        if (rawPage != null) {
+            page = Integer.parseInt(rawPage);
+        }
         
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
+        int id = Integer.parseInt(request.getParameter("categoryId"));
+        int allPage = new ProductDAO().getNumberPageById(id);
+        request.setAttribute("page", allPage);
+        ArrayList<Product> listProduct = new ProductDAO().getProductWithPagingById(id, page, PAGE_SIZE);
+        request.setAttribute("listPro", listProduct);
+        String link = "filter-category?categoryId=" + id + "&";
+        request.setAttribute("link", link);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
     
 }
