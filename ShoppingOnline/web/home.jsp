@@ -33,7 +33,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="home">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -55,7 +55,7 @@
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.carts.size()}</span>
                         </button>
                     </form>
                     <button class="btn btn-outline-success me-2 ms-lg-2" type="button">Login</button>
@@ -95,7 +95,9 @@
                                         <!-- Sale badge-->
                                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                                         <!-- Product image-->
-                                        <img class="card-img-top" src="${p.imageUrl}" alt="..." />
+                                        <a href="detail?productId=${p.id}">
+                                            <img class="card-img-top" src="${p.imageUrl}" alt="..." />
+                                        </a>
                                         <!-- Product details-->
                                         <div class="card-body p-4">
                                             <div class="text-center">
@@ -115,7 +117,7 @@
                                         </div>
                                         <!-- Product actions-->
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="add-to-cart?productId=${p.id}">Add to cart</a></div>
                                         </div>
                                     </div>
                                 </div>

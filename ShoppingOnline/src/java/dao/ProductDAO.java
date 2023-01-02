@@ -197,7 +197,35 @@ public class ProductDAO {
         }
         return productList;
     }
+    
+    public Product getProductById(int productId) {
+        Product p = new Product();
+        try {
+            String sql = "SELECT * FROM Product WHERE id = ?";
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setQuantity(rs.getInt("quantity"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDescription(rs.getString("description"));
+                p.setImageUrl(rs.getString("imageUrl"));
+                p.setCreatedDate(rs.getTimestamp("created_date").toLocalDateTime());
 
+                Category category = new Category();
+                category.setId(rs.getInt("category_id"));
+                p.setCategory(category);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
+    }
+    
+    
     public static void main(String[] args) {
         ArrayList<Product> p = new ProductDAO().getProductWithPagingById(2, 1, 6);
         for (Product pro : p) {
@@ -207,5 +235,7 @@ public class ProductDAO {
 //        int i = new ProductDAO().getNumberPageById(3);
 //        System.out.println(i);
     }
+
+    
 
 }

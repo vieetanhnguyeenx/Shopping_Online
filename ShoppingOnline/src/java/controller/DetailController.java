@@ -4,12 +4,14 @@
  */
 package controller;
 
+import dao.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Product;
 
 /**
  *
@@ -17,12 +19,17 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class DetailController extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-           request.getRequestDispatcher("detail.jsp").forward(request, response);
+            String rawProductId = request.getParameter("productId");
+            int productId = Integer.parseInt(rawProductId);
+            
+            Product p = new ProductDAO().getProductById(productId);
+            request.setAttribute("product", p);
+            request.getSession().setAttribute("urlHistory", request.getRequestURI() + "?productId=" + productId);
+            request.getRequestDispatcher("detail.jsp").forward(request, response);
         }
     }
 

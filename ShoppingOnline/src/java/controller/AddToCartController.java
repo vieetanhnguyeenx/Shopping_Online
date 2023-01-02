@@ -4,53 +4,62 @@
  */
 package controller;
 
-import context.DBContext;
-import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Category;
+import jakarta.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import model.Cart;
 import model.Product;
 
 /**
  *
  * @author Admin
  */
-public class HomeController extends HttpServlet {
+public class AddToCartController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ArrayList<Category> listCategory = new CategoryDAO().getAllCategory();
-        request.setAttribute("listCate", listCategory);
-
-        int page = 1;
-        final int PAGE_SIZE = 6;
-        String rawPage = request.getParameter("page");
-        if (rawPage != null) {
-            page = Integer.parseInt(rawPage);
+        try ( PrintWriter out = response.getWriter()) {
+            String rawProductId = request.getParameter("productId");
+            int productId = Integer.parseInt(rawProductId);
+            
+            // Using hashmap productId | cart
+            HttpSession session = request.getSession();
+            Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+            // When carts dosen't exist in session creat new one
+            if (carts == null) {
+                carts = new LinkedHashMap<>();
+            }
+            
+            // Update or Create new Product in cart session
+            // When product is exist in cart
+            if (carts.containsKey(productId)) {
+                int oldQuantity = carts.get(productId).getQuantity();
+                carts.get(productId).setQuantity(oldQuantity + 1);
+            // When produst dosen't exist in cart
+            }else {
+                Product product = new ProductDAO().getProductById(productId);
+                Cart c = new Cart();
+                c.setProduct(product);
+                c.setQuantity(1);
+                carts.put(productId, c);
+            }
+            // Save cart to session
+            session.setAttribute("carts", carts);
+            String urlHistory = (String) session.getAttribute("urlHistory");
+            if (urlHistory == null) {
+                response.sendRedirect("home");
+            }
+            response.sendRedirect(urlHistory);
+            
         }
-        int allPage = new ProductDAO().getNumberPage();
-        request.setAttribute("page", allPage);
-        ArrayList<Product> listProduct = new ProductDAO().getProductWithPaging(page, PAGE_SIZE);
-        request.setAttribute("listPro", listProduct);
-        request.setAttribute("link", "home?");
-        request.getSession().setAttribute("urlHistory", request.getRequestURI());
-        //display home.jsp
-        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

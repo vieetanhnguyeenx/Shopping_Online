@@ -4,11 +4,18 @@
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.HomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>controller.AddToCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailController</servlet-name>
+        <servlet-class>controller.DetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>FilterController</servlet-name>
         <servlet-class>controller.FilterCategoryController</servlet-class>
@@ -17,10 +24,17 @@
         <servlet-name>FilterController</servlet-name>
         <url-pattern>/filter-category</url-pattern>
     </servlet-mapping>
-    
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/add-to-cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailController</servlet-name>
+        <url-pattern>/detail</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
