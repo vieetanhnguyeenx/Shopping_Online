@@ -51,13 +51,13 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <form class="d-flex my-2">
+                    <a class="d-flex my-2" href="carts" style="text-decoration: none">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.carts.size()}</span>
                         </button>
-                    </form>
+                    </a>
                     <button class="btn btn-outline-success me-2 ms-lg-2" type="button">Login</button>
                 </div>
             </div>
