@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,36 +63,43 @@
 
         <div class="py-3">                
             <div class="container px-4 px-lg-5 mt-5 vh-100">
-                <h3>List Products</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <c:if test="${sessionScope.carts.isEmpty()}" var="condition">
+                    <h1>List cart is empty</h1>
+                    <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ullam exercitationem eius delectus numquam sint ut facere blanditiis molestiae corrupti. Et voluptatem at hic laudantium. Quaerat adipisci ad veritatis ex!</p>
+                </c:if>
+                <c:if test="${!condition}">
+                    <h3>List Products</h3>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="my-auto">
+
+                            <c:forEach items="${sessionScope.carts}" var="c">
+                                <tr>
+                                    <th scope="row">${c.value.product.id}</th>
+                                    <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
+                                    <td>${c.value.product.name}</td>
+                                    <td>${c.value.product.price}</td>
+                                    <td>${c.value.quantity}</td>
+                                    <td>${c.value.product.price * c.value.quantity} </td>
+                                    <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                                </tr>
+                            </c:forEach>
+
+
+                        </tbody>
+                    </table>
+                </c:if>
             </div>
         </div>
 
