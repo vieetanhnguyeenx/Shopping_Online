@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import model.Cart;
@@ -32,6 +33,15 @@ public class CartController extends HttpServlet {
             if (carts == null) {
                 carts = new LinkedHashMap<>();
             }
+            
+            // caculate total
+            double totalMoney = 0;
+            for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+                Integer key = entry.getKey();
+                Cart cart = entry.getValue();
+                totalMoney += cart.getQuantity() * cart.getProduct().getPrice();
+            }
+            request.setAttribute("totalMoney", (double) Math.round(totalMoney * 10000) / 10000);
             request.setAttribute("carts", carts);
             request.getRequestDispatcher("carts.jsp").forward(request, response);
         }
