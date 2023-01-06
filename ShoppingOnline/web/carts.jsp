@@ -87,14 +87,14 @@
                             <c:forEach items="${sessionScope.carts}" var="c">
                             <form action="update-cart-quantity" method="GET">
                                 <tr>
-                                    <input type="hidden" name="productId" value="${c.value.product.id}" />
-                                    <th scope="row">${c.value.product.id}</th>
-                                    <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
-                                    <td>${c.value.product.name}</td>
-                                    <td>${c.value.product.price}</td>
-                                    <td><input onchange="this.form.submit()" name="quantity" min="1" max="999" class="btn btn-outline-dark" type="number" value="${c.value.quantity}"></td>
-                                    <td>${c.value.product.price * c.value.quantity} </td>
-                                    <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                                <input type="hidden" name="productId" value="${c.value.product.id}" />
+                                <th scope="row">${c.value.product.id}</th>
+                                <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
+                                <td>${c.value.product.name}</td>
+                                <td>${c.value.product.price}</td>
+                                <td><input onchange="this.form.submit()" name="quantity" min="1" max="999" class="btn btn-outline-dark" type="number" value="${c.value.quantity} "></td>
+                                <td>${c.value.product.price * c.value.quantity} </td>
+                                <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
                                 </tr>
                             </form>
                         </c:forEach>
@@ -102,11 +102,12 @@
                         </tbody>
                     </table>
                 </c:if>
-                <div>
+                <div class="d-flex justify-content-end">
                     <h3 class="my-auto">Total Amount: $${requestScope.totalMoney}</h3>
                 </div>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
 
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom"></div>
+                <a type="button" href="check-out" class="btn btn-success w-25 float-end mt-2">Check Out</a>
             </div>
         </div>
 
