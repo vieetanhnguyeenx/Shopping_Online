@@ -64,21 +64,31 @@
             <h1 class="my-3">Check Out</h1>
             <div class="container mt-4">
                 <div class="row">
-                    <div class="col-8 border border-secondary rounded-1">
+                    <div class="col-md-4 border border-secondary rounded-1">
+                        <h3 class="bg-secondary rounded mt-1">SHIPMENT DETAILS</h3>
+                        <form action="action" method="POST">
+                            <input type="text" placeholder="Full Name" name="name"> <br>
+                            <input type="text" placeholder="Phone Number" name="phoneNumber"> <br>
+                            <input type="text" placeholder="Email" name="email"> <br>
+                            <input type="text" placeholder="Address" name="address"> <br>
+                            <input type="checkbox" name="vehicle1" > Receive notifications from the website
+                        </form>
+                        <h3 class="bg-light bg-gradient rounded">DELIVERY METHOD</h3>
+                        <h3 class="bg-secondary rounded">PAYMENT METHODS</h3>
+                    </div>
+                    <div class="col-md-8 border border-secondary rounded-1">
                         <div class="py-3">                
-                            <div class=" px-4 px-lg-5 mt-5 vh-100">
+                            <div class=" px-lg-4 px-lg-5 mt-5 vh-100">
                                 <c:if test="${sessionScope.carts.isEmpty()}" var="condition">
                                     <h1>List cart is empty</h1>
                                     <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ullam exercitationem eius delectus numquam sint ut facere blanditiis molestiae corrupti. Et voluptatem at hic laudantium. Quaerat adipisci ad veritatis ex!</p>
                                 </c:if>
                                 <c:if test="${!condition}">
-                                    <h3>List Products</h3>
-
+                                    <h3 class="bg-secondary rounded">LIST PRODUCTS</h3>
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Id</th>
-                                                <th scope="col">Image</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Quantity</th>
@@ -93,10 +103,9 @@
                                                 <tr>
                                                 <input type="hidden" name="productId" value="${c.value.product.id}" />
                                                 <th scope="row">${c.value.product.id}</th>
-                                                <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
                                                 <td>${c.value.product.name}</td>
                                                 <td>${c.value.product.price}</td>
-                                                <td><input onchange="this.form.submit()" name="quantity" min="1" max="999" class="btn btn-outline-dark" type="number" value="${c.value.quantity} "></td>
+                                                <td>${c.value.quantity}</td>
                                                 <td>${c.value.product.price * c.value.quantity} </td>
                                                 <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
                                                 </tr>
@@ -113,11 +122,7 @@
 
                         </div>
                     </div>    
-                    <div class="col-4">
-                        <form action="action">
-                            
-                        </form>
-                    </div>
+
 
 
 
