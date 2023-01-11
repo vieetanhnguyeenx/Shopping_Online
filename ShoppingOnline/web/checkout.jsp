@@ -60,78 +60,82 @@
                 </div>
             </div>
         </nav>
-        <div class="container ">
-            <h1 class="my-3">Check Out</h1>
-            <div class="container mt-4">
+
+        <div class="py-3">
+
+            <div class="container px-4 px-lg-5 mt-5 vh-100">
+                <h1 class="">CheckOut</h1>
                 <div class="row">
-                    <div class="col-md-4 border border-secondary rounded-1">
-                        <h3 class="bg-secondary rounded mt-1">SHIPMENT DETAILS</h3>
-                        <form action="action" method="POST">
-                            <input type="text" placeholder="Full Name" name="name"> <br>
-                            <input type="text" placeholder="Phone Number" name="phoneNumber"> <br>
-                            <input type="text" placeholder="Email" name="email"> <br>
-                            <input type="text" placeholder="Address" name="address"> <br>
-                            <input type="checkbox" name="vehicle1" > Receive notifications from the website
-                        </form>
-                        <h3 class="bg-light bg-gradient rounded">DELIVERY METHOD</h3>
-                        <h3 class="bg-secondary rounded">PAYMENT METHODS</h3>
-                    </div>
-                    <div class="col-md-8 border border-secondary rounded-1">
-                        <div class="py-3">                
-                            <div class=" px-lg-4 px-lg-5 mt-5 vh-100">
-                                <c:if test="${sessionScope.carts.isEmpty()}" var="condition">
-                                    <h1>List cart is empty</h1>
-                                    <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ullam exercitationem eius delectus numquam sint ut facere blanditiis molestiae corrupti. Et voluptatem at hic laudantium. Quaerat adipisci ad veritatis ex!</p>
-                                </c:if>
-                                <c:if test="${!condition}">
-                                    <h3 class="bg-secondary rounded">LIST PRODUCTS</h3>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="my-auto">
+                    <div class="col-md-8 border border-1 rounded p-1">
+                        <c:if test="${sessionScope.carts.isEmpty()}" var="condition">
+                            <h2 class="bg-light text-dark">List cart is empty</h2>
+                            <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ullam exercitationem eius delectus numquam sint ut facere blanditiis molestiae corrupti. Et voluptatem at hic laudantium. Quaerat adipisci ad veritatis ex!</p>
+                        </c:if>
+                        <c:if test="${!condition}">
+                            <h3 class="bg-light text-dark">List Products</h3>
 
-                                            <c:forEach items="${sessionScope.carts}" var="c">
-                                            <form action="update-cart-quantity" method="GET">
-                                                <tr>
-                                                <input type="hidden" name="productId" value="${c.value.product.id}" />
-                                                <th scope="row">${c.value.product.id}</th>
-                                                <td>${c.value.product.name}</td>
-                                                <td>${c.value.product.price}</td>
-                                                <td>${c.value.quantity}</td>
-                                                <td>${c.value.product.price * c.value.quantity} </td>
-                                                <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
-                                                </tr>
-                                            </form>
-                                        </c:forEach>
-                                    <!-- <input type="number" value="${c.value.quantity}"> -->
-                                        </tbody>
-                                    </table>
-                                </c:if>
-                                <div class="d-flex justify-content-end">
-                                    <h3 class="my-auto">Total Amount: $${requestScope.totalMoney}</h3>
-                                </div>
-                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="my-auto">
 
+                                    <c:forEach items="${sessionScope.carts}" var="c">
+                                    <form action="update-cart-quantity" method="GET">
+                                        <tr>
+                                        <input type="hidden" name="productId" value="${c.value.product.id}" />
+                                        <th scope="row">${c.value.product.id}</th>
+                                        <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
+                                        <td>${c.value.product.name}</td>
+                                        <td>${c.value.product.price}</td>
+                                        <td><input onchange="this.form.submit()" name="quantity" class="btn btn-outline-dark" type="number" value="${c.value.quantity}"></td>
+                                        <td>${c.value.product.price * c.value.quantity} </td>
+                                        <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                                        </tr>
+                                    </form>
+                                </c:forEach>
+                            <!-- <input type="number" value="${c.value.quantity}"> -->
+                                </tbody>
+                            </table>
+                        </c:if>
+                        <div class="d-flex justify-content-end">
+                            <h3 class="my-auto">Total Amount: $${requestScope.totalMoney}</h3>
                         </div>
-                    </div>    
-
-
-
-
+                    </div>
+                    <div class="col-md-4 border border-1 rounded p-1">
+                        <h3 class="bg-light text-dark">Information of customer</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </form>
+                    </div>
                 </div>
+
             </div>
         </div>
 
         <!-- Footer-->
-        <footer class="py-5 mt-5 bg-dark">
+        <footer class="py-5 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">Copyright &copy; LongWatch</p>
             </div>

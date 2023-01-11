@@ -92,7 +92,7 @@
                                 <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
                                 <td>${c.value.product.name}</td>
                                 <td>${c.value.product.price}</td>
-                                <td><input onchange="this.form.submit()" name="quantity" min="1" max="999" class="btn btn-outline-dark" type="number" value="${c.value.quantity} "></td>
+                                <td><input onchange="this.form.submit()" name="quantity" class="btn btn-outline-dark" type="number" value="${c.value.quantity}"></td>
                                 <td>${c.value.product.price * c.value.quantity} </td>
                                 <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
                                 </tr>
