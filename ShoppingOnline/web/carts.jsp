@@ -63,7 +63,7 @@
         </nav>
 
         <div class="py-3">                
-            <div class="container px-4 px-lg-5 mt-5 vh-100">
+            <div class="container px-4 px-lg-5 mt-5 vh-50 mb-5">
                 <c:if test="${sessionScope.carts.isEmpty()}" var="condition">
                     <h1>List cart is empty</h1>
                     <p class="fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ullam exercitationem eius delectus numquam sint ut facere blanditiis molestiae corrupti. Et voluptatem at hic laudantium. Quaerat adipisci ad veritatis ex!</p>

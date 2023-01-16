@@ -62,9 +62,9 @@
             </div>
         </nav>
 
-        <div class="py-3 mb-md-5">
+        <div class="py-3 mb-md-5 mb-5">
 
-            <div class="container px-4 px-lg-5 mt-5 vh-100">
+            <div class="container px-4 px-lg-5 mt-5 vh-50 mb-5">
                 <h1 class="">CheckOut</h1>
                 <div class="row">
                     <div class="col-md-8 border border-1 rounded p-1">
@@ -111,21 +111,28 @@
                     </div>
                     <div class="col-md-4 border border-1 rounded p-1">
                         <h3 class="bg-light text-dark">Information of customer</h3>
-                        <form>
+                        <form action="check-out" method="POST">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp">
+
                             </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" name="address" aria-describedby="emailHelp">
+
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                            <div class="mb-3">
+                                <label for="note" class="form-label">Note</label>
+                                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 align-self-end">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -136,7 +143,7 @@
         <!-- Footer-->
         <footer class="py-5 bg-dark mt-5">
             <div class="container mt-5">
-                <p class="m-0 text-center text-white">Copyright &copy; LongWatch</p>
+                <p class="m-0 text-center text-white">Copyright &copy; NVA</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->
