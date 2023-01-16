@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="rounded" class="model.Cart"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@
             </div>
         </nav>
 
-        <div class="py-3">
+        <div class="py-3 mb-md-5">
 
             <div class="container px-4 px-lg-5 mt-5 vh-100">
                 <h1 class="">CheckOut</h1>
@@ -83,10 +84,9 @@
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody class="my-auto">
+                                <tbody>
 
                                     <c:forEach items="${sessionScope.carts}" var="c">
                                     <form action="update-cart-quantity" method="GET">
@@ -96,9 +96,8 @@
                                         <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
                                         <td>${c.value.product.name}</td>
                                         <td>${c.value.product.price}</td>
-                                        <td><input onchange="this.form.submit()" name="quantity" class="btn btn-outline-dark" type="number" value="${c.value.quantity}"></td>
-                                        <td>${c.value.product.price * c.value.quantity} </td>
-                                        <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                                        <td><input onchange="this.form.submit()" name="quantity" class="btn btn-outline-dark form-control" type="number" value="${c.value.quantity}" readonly></td>
+                                        <td>${rounded.roundedDouble(c.value.quantity, c.value.product.price)} </td>
                                         </tr>
                                     </form>
                                 </c:forEach>
@@ -135,8 +134,8 @@
         </div>
 
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
+        <footer class="py-5 bg-dark mt-5">
+            <div class="container mt-5">
                 <p class="m-0 text-center text-white">Copyright &copy; LongWatch</p>
             </div>
         </footer>

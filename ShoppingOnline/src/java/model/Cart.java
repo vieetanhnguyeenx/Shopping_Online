@@ -36,5 +36,8 @@ public class Cart {
         return product.toString() + "\t" + quantity;
     }
     
-    
+    public double roundedDouble(double quantity, double price) {
+        double num = Math.round(quantity * price * 1000);
+        return num/1000;
+    } 
 }

@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="rounded" class="model.Cart"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,8 +93,8 @@
                                 <td><img src="${c.value.product.imageUrl}" class="rounded-2" alt="alt" width="100"/></td>
                                 <td>${c.value.product.name}</td>
                                 <td>${c.value.product.price}</td>
-                                <td><input onchange="this.form.submit()" name="quantity" class="btn btn-outline-dark" type="number" value="${c.value.quantity}"></td>
-                                <td>${c.value.product.price * c.value.quantity} </td>
+                                <td><input onchange="this.form.submit()" name="quantity" class="btn btn-outline-dark form-control" type="number" value="${c.value.quantity}"></td>
+                                <td>${rounded.roundedDouble(c.value.quantity, c.value.product.price)} </td>
                                 <td><a href="delete-cart?productId=${c.value.product.id}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a></td>
                                 </tr>
                             </form>
