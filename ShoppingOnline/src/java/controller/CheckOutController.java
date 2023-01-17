@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.ShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,7 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import model.Account;
 import model.Cart;
+import model.Order;
+import model.Shipping;
 
 /**
  *
@@ -80,7 +84,24 @@ public class CheckOutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String note = request.getParameter("note");
+        // Save in data base
+        // 1. Shipping
+        Shipping shipping = new Shipping();
+        shipping.setName(name);
+        shipping.setPhone(phone);
+        shipping.setAddress(address);
+        ShippingDAO shippingDao = new ShippingDAO();
+        int shippingId = shippingDao.createAndReturnId(shipping);
         
+        // 2. Save Order
+        Order order = new Order();
+        Account account = new Account();
+        order.setAccount(account);
+        order.setTotalPrice(shippingId);
     }
 
     /**
