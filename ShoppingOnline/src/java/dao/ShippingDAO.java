@@ -35,7 +35,7 @@ public class ShippingDAO {
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
+            while (rs.next()) {
                 return rs.getInt(1);
             }
         } catch (Exception ex) {

@@ -4,6 +4,8 @@
  */
 package controller;
 
+import dao.OrderDAO;
+import dao.OrderDetailDAO;
 import dao.ShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import model.Account;
@@ -96,12 +99,38 @@ public class CheckOutController extends HttpServlet {
         shipping.setAddress(address);
         ShippingDAO shippingDao = new ShippingDAO();
         int shippingId = shippingDao.createAndReturnId(shipping);
+        shipping.setId(shippingId);
         
         // 2. Save Order
         Order order = new Order();
         Account account = new Account();
+        account.setId(1);
         order.setAccount(account);
-        order.setTotalPrice(shippingId);
+        // caculate totoal price 
+        HttpSession session = request.getSession();
+            Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+            if (carts == null) {
+                carts = new LinkedHashMap<>();
+            }
+            
+            // caculate total
+            double totalPrice = 0;
+            for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+                Integer key = entry.getKey();
+                Cart cart = entry.getValue();
+                totalPrice += cart.getQuantity() * cart.getProduct().getPrice();
+            }
+        order.setTotalPrice(totalPrice);
+        order.setNote(note);
+        order.setDate(LocalDate.now());
+        order.setShip(shipping);
+        int orderId = new OrderDAO().createAndReturnId(order);
+        order.setId(orderId);
+        
+        // Save orderdetail
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        orderDetailDAO.saveCart(order, carts);
+        response.sendRedirect("thanks-for-purchase");
     }
 
     /**

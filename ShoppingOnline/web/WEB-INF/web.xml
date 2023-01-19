@@ -24,6 +24,10 @@
         <servlet-name>CheckOutController</servlet-name>
         <servlet-class>controller.CheckOutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ThanksForPurchaseController</servlet-name>
+        <servlet-class>controller.ThanksForPurchaseController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -58,6 +62,10 @@
     <servlet-mapping>
         <servlet-name>CheckOutController</servlet-name>
         <url-pattern>/check-out</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThanksForPurchaseController</servlet-name>
+        <url-pattern>/thanks-for-purchase</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
