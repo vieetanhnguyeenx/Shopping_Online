@@ -87,6 +87,8 @@ public class CheckOutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
@@ -131,6 +133,7 @@ public class CheckOutController extends HttpServlet {
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         orderDetailDAO.saveCart(order, carts);
         response.sendRedirect("thanks-for-purchase");
+        session.removeAttribute("carts");
     }
 
     /**
