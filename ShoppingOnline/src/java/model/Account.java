@@ -75,6 +75,11 @@ public class Account {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", userName=" + userName + ", password=" + password + ", displayName=" + displayName + ", address=" + address + ", email=" + email + ", phone=" + phone + '}';
+    }
     
     
     

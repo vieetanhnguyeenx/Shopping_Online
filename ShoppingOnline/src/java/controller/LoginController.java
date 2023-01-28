@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        boolean remember = Boolean.parseBoolean(request.getParameter("remember"));
+        boolean remember = request.getParameter("remember") != null;
 
         // check username and password 
         Account account = new AccountDAO().login(username, password);
